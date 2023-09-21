@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Login from './containers/Login'
+import Home from './containers/Home'
+import Profile from './containers/Profile'
+import Signup from './containers/Signup'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { PrivateRoute, PrivateRouteAdmin } from './components/PrivateRoute'
+import LoginAdmin from './containers/LoginAdmin'
+import HomeAdmin from './containers/HomeAdmin'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<BrowserRouter>
+			<ToastContainer
+				position="bottom-center"
+				autoClose={3000}
+				hideProgressBar
+				newestOnTop
+				closeOnClick={false}
+				rtl={false}
+				pauseOnFocusLoss
+				draggable={false}
+				pauseOnHover
+				theme="light"
+			/>
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<Signup />} />
+				<Route path="" element={<PrivateRoute />}>
+					<Route path="/profile" element={<Profile />} />
+				</Route>
+				<Route path="/admin/login" element={<LoginAdmin />} />
+				<Route path="" element={<PrivateRouteAdmin />}>
+					<Route path="/admin/" element={<HomeAdmin />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	)
 }
 
-export default App;
+export default App
