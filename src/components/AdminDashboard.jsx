@@ -22,7 +22,7 @@ function AdminDashboard() {
 	const [search, setSearch] = useState('')
 
 	const navigate = useNavigate()
-    const location = useLocation()
+	const location = useLocation()
 
 	async function handleUpdate(e) {
 		e.preventDefault()
@@ -41,6 +41,7 @@ function AdminDashboard() {
 			formData.append('image', userData.profileImage)
 			const res = await userUpdate(formData).unwrap()
 			setUserData(null)
+            setAction(null)
 		} catch (error) {
 			toast.error(error?.data?.message || error.error)
 		}
@@ -51,6 +52,7 @@ function AdminDashboard() {
 		try {
 			const res = await userDelete({ _id: userData._id }).unwrap()
 			setUserData(null)
+            setAction(null)
 		} catch (error) {
 			toast.error(error?.data?.message || error.error)
 		}
@@ -72,6 +74,7 @@ function AdminDashboard() {
 			formData.append('image', userData.profileImage)
 			const res = await userCreate(formData).unwrap()
 			setUserData(null)
+            setAction(null)
 		} catch (error) {
 			toast.error(error?.data?.message || error.error)
 		}
@@ -80,14 +83,14 @@ function AdminDashboard() {
 	function handleSearch(e) {
 		e.preventDefault()
 		navigate(`/admin/?search=${search}`)
-        setUserData({})
-        setAction(null)
+		setUserData({})
+		setAction(null)
 	}
 
-    useEffect(() => {
+	useEffect(() => {
 		const getAllUsers = async () => {
-            const queryParams = new URLSearchParams(location.search);
-            const search = queryParams.get('search') || ''
+			const queryParams = new URLSearchParams(location.search)
+			const search = queryParams.get('search') || ''
 			const res = await getUsers(search).unwrap()
 			setUsers(res)
 		}
@@ -96,8 +99,8 @@ function AdminDashboard() {
 
 	useEffect(() => {
 		const getAllUsers = async () => {
-            const queryParams = new URLSearchParams(location.search);
-            const search = queryParams.get('search') || ''
+			const queryParams = new URLSearchParams(location.search)
+			const search = queryParams.get('search') || ''
 			const res = await getUsers(search).unwrap()
 			setUsers(res)
 		}
@@ -142,7 +145,7 @@ function AdminDashboard() {
 					users.map((user) => (
 						<div
 							key={user._id}
-							className="border-2 p-4 rounded-lg mt-4 hover:shadow-md hover:bg-slate-50 cursor-pointer"
+							className="border-2 p-4 rounded-lg mt-4 flex gap-2 hover:shadow-md hover:bg-slate-50 cursor-pointer"
 							onClick={() => {
 								setUserData({
 									_id: user._id,
@@ -150,17 +153,24 @@ function AdminDashboard() {
 									email: user.email,
 									password: '',
 									confirmPassword: '',
-									profileImage: `api/images/${user.profileImage}`,
+									profileImage: `/api/images/${user.profileImage}`,
 								})
 								setAction('update')
 							}}>
-							<p className="text-sm font-bold text-gray-700">{user.name}</p>
-							<p className="text-gray-500">{user.email}</p>
+							<img
+								src={`/api/images/${user.profileImage}`}
+								alt=""
+								className="w-[50px] h-[50px] rounded-full"
+							/>
+							<div>
+								<p className="text-sm font-bold text-gray-700">{user.name}</p>
+								<p className="text-gray-500">{user.email}</p>
+							</div>
 						</div>
 					))
 				) : (
-					<div className="text-center">
-						<h5 className="text-xl font-bold text-gray-700">No users found</h5>
+					<div className="text-left">
+						<h5 className="text-lg text-gray-700 mt-2">No users found</h5>
 					</div>
 				)}
 			</div>
@@ -228,7 +238,10 @@ function AdminDashboard() {
 							<div className="flex gap-5 justify-center items-end mt-4">
 								<button
 									type="submit"
-									onClick={() => setUserData(null)}
+									onClick={() => {
+										setUserData(null)
+                                        setAction(null)
+									}}
 									className=" border-2 font-bold rounded py-1 px-2">
 									Cancel
 								</button>

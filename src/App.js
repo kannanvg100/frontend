@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { PrivateRoute, PrivateRouteAdmin } from './components/PrivateRoute'
 import LoginAdmin from './containers/LoginAdmin'
 import HomeAdmin from './containers/HomeAdmin'
+import Error404 from './containers/Error404'
 
 function App() {
 	return (
@@ -36,6 +37,7 @@ function App() {
 				<Route path="" element={<PrivateRouteAdmin />}>
 					<Route path="/admin/" element={<HomeAdmin />} />
 				</Route>
+				<Route path='*' element={<Error404 />} />
 			</Routes>
 		</BrowserRouter>
 	)

@@ -6,7 +6,8 @@ import { setCredentials } from '../slices/authSlice'
 import { toast } from 'react-toastify'
 
 function LoginAdmin() {
-	const [userData, setUserData] = useState({ email: '', password: '' })
+    document.title = 'Login'
+	const [userData, setUserData] = useState({ email: 'admin@gmail.com', password: '1111' })
 
 	const navigate = useNavigate()
 	const despatch = useDispatch()

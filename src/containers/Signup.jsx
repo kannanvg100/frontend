@@ -6,6 +6,7 @@ import { useSignupMutation } from '../slices/usersApiSlice'
 import { setCredentials } from '../slices/authSlice'
 
 function Signup() {
+    document.title = 'Signup'
 	const [userData, setUserData] = useState({ name: '', email: '', password: '', confirmPassword: '' })
 	const { userInfo } = useSelector((state) => state.auth)
     const despatch = useDispatch()

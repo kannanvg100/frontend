@@ -23,20 +23,26 @@ function Navbar() {
 				<h1 className="text-3xl font-bold text-gray-700">User Home</h1>
 				{userInfo ? (
 					<div className="flex gap-5">
-						<button
-							type="button"
-							className="hover:underline"
+						<div
+							className=" rounded-lg px-2 cursor-pointer flex items-center hover:bg-slate-200 "
 							onClick={() => {
 								navigate('/profile')
 							}}>
-							{userInfo?.name}
-						</button>
+							<img
+								src={`api/images/${userInfo?.profileImage}`}
+								alt="profile_pic"
+								className="h-[30px] w-[30px] object-cover inline my-2 rounded-full"
+							/>
+							<button type="button" className="ms-2">
+								{userInfo?.name}
+							</button>
+						</div>
 						<button type="button" className="hover:underline" onClick={handleLogout}>
 							Logout
 						</button>
 					</div>
 				) : (
-					<div className='flex gap-5'>
+					<div className="flex gap-5">
 						<button
 							type="button"
 							className="hover:underline"

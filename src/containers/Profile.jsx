@@ -6,6 +6,7 @@ import { useUpdateMutation } from '../slices/usersApiSlice'
 import { setCredentials } from '../slices/authSlice'
 
 function Signup() {
+    document.title = 'Update Profile'
 	const [userData, setUserData] = useState({ _id: '', name: '', email: '', password: '', confirmPassword: '', profileImage: '' })
 	const { userInfo } = useSelector((state) => state.auth)
 	const [userUpdate, { isLoading }] = useUpdateMutation()
